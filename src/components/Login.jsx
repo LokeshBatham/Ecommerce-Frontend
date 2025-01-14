@@ -42,35 +42,37 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     // Regex for validation
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const contactRegex = /^[6-9]\d{9}$/;
-
+  
     if (!emailRegex.test(formData.email)) {
       setMessage('Invalid email format.');
       return;
     }
-
+  
     if (!isLogin && !contactRegex.test(formData.contactNumber)) {
       setMessage('Invalid contact number. Must be 10 digits starting with 6-9.');
       return;
     }
-
+  
     try {
+      // Ensure correct handling of trailing slash
+      const baseUrl = process.env.REACT_APP_BASE_URL.replace(/\/+$/, '');
       const endpoint = isLogin
-        ? `${process.env.REACT_BASE_URL}api/auth/login`
-        : `${process.env.REACT_BASE_URL}api/auth/signup`;
-
+        ? `${baseUrl}/api/auth/login`
+        : `${baseUrl}/api/auth/signup`;
+  
       const res = await axios.post(endpoint, formData);
-
+  
       if (isLogin) {
-        // Save all user details and token to local storage
+        // Save user details and token to local storage
         localStorage.setItem('token', res.data.token);
-        localStorage.setItem('user', JSON.stringify(res.data.user)); // Save user details
-
+        localStorage.setItem('user', JSON.stringify(res.data.user));
+  
         setMessage('Login successful!');
-        
+  
         // Redirect to the dashboard
         navigate('/dashboard');
       } else {
@@ -80,8 +82,8 @@ const Login = () => {
           password: '',
           name: '',
           contactNumber: '',
-        })
-        setIsLogin(true)
+        });
+        setIsLogin(true);
       }
     } catch (err) {
       setMessage('Something went wrong. Please try again.');

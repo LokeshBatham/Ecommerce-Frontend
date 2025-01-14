@@ -12,6 +12,8 @@ const Dashboard = () => {
   const token = localStorage.getItem('token'); // Retrieve token from localStorage
   const navigate = useNavigate(); // Initialize navigation hook
 
+  const BASE_URL = process.env.REACT_APP_BASE_URL?.replace(/\/+$/, ''); // Ensure no trailing slash
+
   // Logout Function
   const handleLogout = () => {
     localStorage.clear(); // Clear user and token from localStorage
@@ -22,8 +24,8 @@ const Dashboard = () => {
   // Fetch products
   const fetchProducts = async () => {
     try {
-      const res = await axios.get(`${process.env.REACT_BASE_URL}/api/products/all`, {
-        headers: { Authorization: token },
+      const res = await axios.get(`${BASE_URL}/api/products/all`, {
+        headers: { Authorization: `Bearer ${token}` },
       });
       setProducts(res.data);
     } catch (err) {
@@ -35,8 +37,8 @@ const Dashboard = () => {
   const handleAddProduct = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`${process.env.REACT_BASE_URL}/api/products/add`, newProduct, {
-        headers: { Authorization: token },
+      await axios.post(`${BASE_URL}/api/products/add`, newProduct, {
+        headers: { Authorization: `Bearer ${token}` },
       });
       fetchProducts(); // Refresh product list
       setNewProduct({ name: '', description: '', price: '' });
@@ -50,8 +52,8 @@ const Dashboard = () => {
   const handleEditProduct = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`${process.env.REACT_BASE_URL}/api/products/edit/${editProduct._id}`, editProduct, {
-        headers: { Authorization: token },
+      await axios.put(`${BASE_URL}/api/products/edit/${editProduct._id}`, editProduct, {
+        headers: { Authorization: `Bearer ${token}` },
       });
       fetchProducts(); // Refresh product list
       setEditProduct(null); // Close the edit form
@@ -64,8 +66,8 @@ const Dashboard = () => {
   // Delete product (Admin only)
   const handleDeleteProduct = async (id) => {
     try {
-      await axios.delete(`${process.env.REACT_BASE_URL}/api/products/delete/${id}`, {
-        headers: { Authorization: token },
+      await axios.delete(`${BASE_URL}/api/products/delete/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
       });
       fetchProducts(); // Refresh product list
       toast.success('Product deleted successfully');
