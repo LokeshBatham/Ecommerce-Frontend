@@ -59,8 +59,8 @@ const Login = () => {
 
     try {
       const endpoint = isLogin
-        ? `${process.env.REACT_BASE_URL}/api/auth/login`
-        : `${process.env.REACT_BASE_URL}/api/auth/signup`;
+        ? `${process.env.REACT_BASE_URL}api/auth/login`
+        : `${process.env.REACT_BASE_URL}api/auth/signup`;
 
       const res = await axios.post(endpoint, formData);
 
