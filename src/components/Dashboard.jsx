@@ -22,7 +22,7 @@ const Dashboard = () => {
   // Fetch products
   const fetchProducts = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/products/all', {
+      const res = await axios.get(`${process.env.REACT_BASE_URL}/api/products/all`, {
         headers: { Authorization: token },
       });
       setProducts(res.data);
@@ -35,7 +35,7 @@ const Dashboard = () => {
   const handleAddProduct = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/products/add', newProduct, {
+      await axios.post(`${process.env.REACT_BASE_URL}/api/products/add`, newProduct, {
         headers: { Authorization: token },
       });
       fetchProducts(); // Refresh product list
@@ -50,7 +50,7 @@ const Dashboard = () => {
   const handleEditProduct = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:5000/api/products/edit/${editProduct._id}`, editProduct, {
+      await axios.put(`${process.env.REACT_BASE_URL}/api/products/edit/${editProduct._id}`, editProduct, {
         headers: { Authorization: token },
       });
       fetchProducts(); // Refresh product list
@@ -64,7 +64,7 @@ const Dashboard = () => {
   // Delete product (Admin only)
   const handleDeleteProduct = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/products/delete/${id}`, {
+      await axios.delete(`${process.env.REACT_BASE_URL}/api/products/delete/${id}`, {
         headers: { Authorization: token },
       });
       fetchProducts(); // Refresh product list

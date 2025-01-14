@@ -19,7 +19,7 @@ const Login = () => {
       const token = localStorage.getItem('token');
       if (token) {
         try {
-          const res = await axios.post('http://localhost:5000/api/auth/validate', {}, {
+          const res = await axios.post(`${process.env.REACT_BASE_URL}/api/auth/validate`, {}, {
             headers: { Authorization: token },
           });
           if (res.data.success) {
@@ -59,8 +59,8 @@ const Login = () => {
 
     try {
       const endpoint = isLogin
-        ? 'http://localhost:5000/api/auth/login'
-        : 'http://localhost:5000/api/auth/signup';
+        ? `${process.env.REACT_BASE_URL}/api/auth/login`
+        : `${process.env.REACT_BASE_URL}/api/auth/signup`;
 
       const res = await axios.post(endpoint, formData);
 
