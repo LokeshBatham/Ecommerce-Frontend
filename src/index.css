@@ -1,0 +1,42 @@
+.container {
+  max-width: 600px;
+}
+
+form {
+  background: #f8f9fa; /* Light background */
+  padding: 20px;
+  border-radius: 10px;
+}
+
+button {
+  transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+textarea::placeholder,
+input::placeholder {
+  color: #6c757d;
+}
+
+h4 {
+  font-weight: bold;
+  color: #007bff;
+}
+
+
+@media screen and (min-width: 767px) {
+
+  .addform {
+    width: 100vh !important;
+  }
+  
+}
+
+@media screen and (max-width: 767px) {
+  .addform {
+    width: 100% !important;
+  }
+}
