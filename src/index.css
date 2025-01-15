@@ -26,13 +26,26 @@ h4 {
   color: #007bff;
 }
 
+.card-body {
+  border-top: 1px solid rgba(0, 0, 0, 0.175);
+}
+
+.card-body h5 {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.card-body p {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
 
 @media screen and (min-width: 767px) {
-
   .addform {
     width: 100vh !important;
   }
-  
 }
 
 @media screen and (max-width: 767px) {
